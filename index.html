@@ -38,20 +38,7 @@
     
   <body class="slides scroll fast defaultScroll whiteSlide animated">
 
-    <!-- Probtn -->
-	<div id="probtn_additional_params" style="display: none;">{"UseExternalDataAboutUser": true, "Debug": true}</div>
-    <!--<script src="https://cdn.probtn.com/probtn_concat.js"></script>-->
-	<script>
-            $(document).ready(function () {
-                $.getScript('//probtnlandings1.azurewebsites.net/probtn.js', function () { 
-                    ////cdn.probtn.com/probtn.js
-                    $(document).StartButton({
-                        'mainStyleCss': '//demo.probtn.com/style.css'
-                    });
 
-                });
-            });
-    </script>
       
     <!-- SVG Library -->
     <svg xmlns="https://www.w3.org/2000/svg" style="display:none">
@@ -851,6 +838,22 @@
     <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
     <script src="js/plugins.js" type="text/javascript" name="plugins"></script>
     <script src="js/slides.js" type="text/javascript" name="main-scripts"></script>
+	
+	
+	    <!-- Probtn -->
+	<div id="probtn_additional_params" style="display: none;">{"UseExternalDataAboutUser": true, "Debug": true}</div>
+    <!--<script src="https://cdn.probtn.com/probtn_concat.js"></script>-->
+	<script>
+            $(document).ready(function () {
+                $.getScript('//probtnlandings1.azurewebsites.net/probtn.js', function () { 
+                    ////cdn.probtn.com/probtn.js
+                    $(document).StartButton({
+                        'mainStyleCss': '//demo.probtn.com/style.css'
+                    });
+
+                });
+            });
+    </script>
 
     <!-- Google Analitycs -->
     <script>
