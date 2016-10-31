@@ -1,7 +1,7 @@
 /*  
 
    _____ _       _                 _  _____ 
-  / ___/| (•)   | |               | |/ ___/  v 2.2
+  / ___/| (•)   | |               | |/ ___/  v 2.3
  | (___ | |_  __| | ___ ____      | | (___  
   \___ \| | |/ _` |/ _ / __/  _   | |\___ \ 
   ____) | | | (_| |  __\__ \ | |__| |____) |
@@ -9,7 +9,7 @@
                                             
                                             
 This script is necessary for proper work of your Slides Project.
-It requires plugins.js and jquery-2.2.2 to run this script.
+It requires plugins.js and jquery-2.2.4 to run this script.
 
 http://designmodo.com/slides/
 
@@ -18,8 +18,8 @@ http://designmodo.com/slides/
 window.inAction = 1;
 window.allowSlide = 1;
 window.blockScroll = 1;
-window.mouseDown = 0;
 window.direction = "";
+window.effectOffset = 0; //new
 window.slideSpeed = 1000;
 window.cleanupDelay = 1450;
 window.effectSpeed = 800;
@@ -29,8 +29,8 @@ window.loadingProgress = 0;
 window.customScroll = 1;
 window.scrollSpeed = 700;
 window.preload = 1;
-window.setHashLink = 1; //new
-window.hideSidebarOnBodyClick = 1; //new
+window.setHashLink = 1;
+window.hideSidebarOnBodyClick = 1;
 
 var $html = $('html');
 
@@ -111,7 +111,7 @@ $(document).ready(function() { "use strict";
   //Get mode
   window.isScroll = $body.hasClass('scroll');
   window.isSimplifiedMobile = $body.hasClass('simplifiedMobile');
-  if (window.isScroll || window.isSimplifiedMobile) { $html.addClass('scrollable'); }
+  if (window.isScroll || window.isSimplifiedMobile && window.isMobile) { $html.addClass('scrollable'); }
   
   //Horizonal Mode
   if ($body.hasClass('horizontal')){
@@ -164,7 +164,7 @@ $(document).ready(function() { "use strict";
   $(window).on('popstate',function(e) {
     setTimeout(function(){
       updateHash();
-    },1000);
+    },100);
     e.preventDefault();
   });
   
@@ -259,6 +259,8 @@ $(document).ready(function() { "use strict";
      
   function showSlide(requested){
     
+    requested = parseInt(requested);
+    
     if ( window.isMobile && window.isSimplifiedMobile || window.isScroll ){
       return;
     }
@@ -306,18 +308,20 @@ $(document).ready(function() { "use strict";
       newSlide.nextAll('.slide').addClass('after').removeClass('before');
       
       //set a trigger
-      $(window).trigger("slideChange", [requested, newSlide]);
+      $(window).trigger("slideChange", [parseInt(requested), newSlide]);
     }
     
     //set hash
-    if (newSlide.attr('name')) { 
-      window.location.hash = newSlide.attr('name'); 
-    } else {
-      if ((window.location.toString().indexOf('#')>0)&&(location.protocol !== "file:")&&(location.href.split('#')[0])){
-        if (history.pushState) {
-          window.history.pushState("", "", location.href.split('#')[0]); 
-        } else {
-          window.location.hash = "";
+    if (window.setHashLink){
+      if (newSlide.attr('name')) { 
+        window.location.hash = newSlide.attr('name'); 
+      } else {
+        if ((window.location.toString().indexOf('#')>0)&&(location.protocol !== "file:")&&(location.href.split('#')[0])){
+          if (history.pushState) {
+            window.history.pushState("", "", location.href.split('#')[0]); 
+          } else {
+            window.location.hash = "";
+          }
         }
       }
     }
@@ -333,9 +337,15 @@ $(document).ready(function() { "use strict";
         if (currenSlideIndex !== requested){
           currenSlide.removeClass('active animate');
         }
-        newSlide.addClass('animate');
         window.blockScroll = 0;
       },window.slideSpeed);
+      
+      if (window.effectOffset > window.slideSpeed) { window.effectOffset = window.slideSpeed; }
+      
+      setTimeout(function(){
+        newSlide.addClass('animate');
+      },window.slideSpeed - window.effectOffset);
+      
         
       //clear element animation on done
       $('.done').removeClass('done');
@@ -594,10 +604,14 @@ $(document).ready(function() { "use strict";
     }
   });
   
-  
+  //hide share with delay
+  var hideShareonScrollDelay = 0;
   function updateScroll(){
-    hideShare();
-    unzoomImage();
+    hideShareonScrollDelay++;
+    if (hideShareonScrollDelay >= 6){
+      hideShare();
+      hideShareonScrollDelay = 0;
+    }
       
     $('.slide').each(function(index, element) {
         
@@ -903,11 +917,11 @@ $(document).ready(function() { "use strict";
     
 		/* [ ↑ ] */
 		if (e.keyCode === 38){
-      e.preventDefault();
 			if (!window.horizontalMode){
+        e.preventDefault();
         window.changeSlide('decrease');
-      }  else {
-            
+      } else {
+        e.preventDefault();
         TweenLite.to($(currentSection), scrollTime, {
           scrollTo : { y: finalScroll, autoKill:true },
           ease: Power1.easeOut,
@@ -918,17 +932,19 @@ $(document).ready(function() { "use strict";
 		
 		/* [ → ] */
 		if (e.keyCode === 39){
-      e.preventDefault();
-		  if (window.horizontalMode){ window.changeSlide('increase'); }
+		  if (window.horizontalMode){ 
+        e.preventDefault();
+        window.changeSlide('increase');
+      }
 		}
     
 		/* [ ↓ ] */
 		if (e.keyCode === 40){
-      e.preventDefault();
       if (!window.horizontalMode) {
-         window.changeSlide('increase');
+        e.preventDefault();
+        window.changeSlide('increase');
       } else {
-            
+        e.preventDefault();
         TweenLite.to($(currentSection), scrollTime, {
           scrollTo : { y: finalScroll, autoKill:true },
           ease: Power1.easeOut,
@@ -966,29 +982,31 @@ $(document).ready(function() { "use strict";
   
   
   
-  var navParent = $('.navigation');
-  var navigation = $(navParent).find('ul');
+  var navParent = $('.navigation'),
+      navigation = $(navParent).find('ul');
   
   if ($(navigation).length > 0) {
   
-    $(navigation).empty();
-    
-    $(navigation).each(function(index, element) {
-      for (var i = 1; i <= window.stages; i++){
-        var title = $('.slide:eq('+(i - 1)+')').data('title');
-        if (title === undefined) { 
+  
+    if ($(navigation).is(':empty')) {
+      
+      $(navigation).each(function(index, element) {
+        for (var i = 1; i <= window.stages; i++){
+          var title = $('.slide:eq('+(i - 1)+')').data('title');
+          if (title === undefined) { 
+            
+            if (window.debugMode) {
+              $(element).append('<li data-title="#'+i+'"></li>');
+            } else {
+              $(element).append('<li></li>');
+            }
           
-          if (window.debugMode) {
-            $(element).append('<li class="tooltip" data-title="#'+i+'"></li>');
           } else {
-            $(element).append('<li></li>');
+            $(element).append('<li data-title="'+title+'"></li>');
           }
-        
-        } else {
-          $(element).append('<li class="tooltip" data-title="'+title+'"></li>');
         }
-      }
-    });
+      });
+    }
     
     //Navigation clicks
     $('.navigation li').on("click touchend", function(){
@@ -1372,7 +1390,7 @@ $(document).ready(function() { "use strict";
             sliderId.find('.selected').removeClass('selected').addClass('hide').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
               $(this).removeClass('hide');
             });
-            sliderId.children('li:eq('+elementIndex+')').addClass('selected');
+            sliderId.children('li:eq('+elementIndex+')').removeClass('hide').addClass('selected');
          }
        });
       
@@ -1399,7 +1417,7 @@ $(document).ready(function() { "use strict";
       //select next
       desiredIndex = $(desiredElement).index();
       $(selected).removeClass('selected');
-      $(desiredElement).addClass('selected');
+      $(desiredElement).removeClass('hide').addClass('selected');
                     
       if ((sliderID) && ($(controller).length > 0) ){
         $(controller).find('.selected').removeClass('selected').addClass('hide').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function() {
@@ -1481,6 +1499,8 @@ $(document).ready(function() { "use strict";
       },500);
       window.dropdownShown = false;
     }
+    
+    hideShareonScrollDelay = 0;
   }
   
   //remove on resize
@@ -1567,14 +1587,15 @@ $(document).ready(function() { "use strict";
   $("#contact-form").ajaxForm(function() { 
     var $contactFormButton = $("#contact-form .button"),
         successText = $contactFormButton.data('success-text') ? $contactFormButton.data('success-text') : "Done!",
+        successClass = $contactFormButton.data('success-class') ? $contactFormButton.data('success-class') : "green",
         defaultText = $contactFormButton.val();
         
-    $contactFormButton.attr('value',successText).removeClass('pink').addClass('green');
+    $contactFormButton.attr('value',successText).addClass(successClass);
     
     setTimeout(function(){
-      $("#contact-form .button").attr('value',defaultText).removeClass('green').addClass('pink');
+      $("#contact-form .button").attr('value',defaultText).removeClass(successClass);
       $("#contact-form")[0].reset();
-    },3000);
+    },4000);
   });
   
 // end on dom ready

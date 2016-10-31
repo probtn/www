@@ -287,7 +287,6 @@ h1,
   font-family:"Source Sans Pro", sans-serif;
   font-size:100px;
   line-height:1.05;  
-  letter-spacing:-0.03em;
   font-weight:300;
 	margin-bottom:28px;
   margin-left:-0.05em;
@@ -441,7 +440,7 @@ p + .h2 {
 }
 
 p.hero {
-  font-size:36px;
+  font-size:70px;
   line-height:1.25;
   letter-spacing:-1px;
   font-weight:100;
@@ -453,8 +452,8 @@ p.large {
 }
 
 p.small {
-  font-size:20px;
-  line-height:1.22727273;
+  font-size:18px;
+  line-height:1.4;
   margin-bottom:20px;
 }
 
@@ -509,7 +508,7 @@ small.small {
   
   h1.small,
   .h1.small {
-    font-size:40px;
+    font-size:60px;
   }
   
   .mobileCrop { margin:0 !important;}
@@ -854,11 +853,14 @@ small.small {
 }
 
 .price {
-  font-size:150px;
+  font-size:80px;
   line-height:1.26;
-  margin-bottom:30px;
-  font-weight:700;
+  font-weight:600;
   letter-spacing:-0.02em;
+}
+
+.pricePadding {
+  padding-bottom: 20px;
 }
 
 .currency {
@@ -1185,6 +1187,7 @@ form label.uppercase {
 .fade-8 .content { background:rgba(17,19,20,0.8); outline:2px solid rgba(17,19,20,0.8); }
 .fade-9 .content { background:rgba(17,19,20,0.9); outline:2px solid rgba(17,19,20,0.9); }
 .fadeCustomBlue .content { background:#1A8DE7; outline:2px solid #1A8DE7); }
+.fadeCustomBlack .content { background:#111; outline:2px solid #111);}
 
 .whiteSlide.fade .content { 
   background:rgba(255,255,255,0.9);
@@ -1762,7 +1765,6 @@ body .slide.whiteSlide {
 
 
 
-
 /***
  *      _____                 _     
  *     |  __ \               | |    
@@ -1783,6 +1785,7 @@ body .slide.whiteSlide {
   text-align:center;
   font-size:22px;
   pointer-events:none;
+  margin-bottom: -30px;
   
   -webkit-backface-visibility:hidden;
   backface-visibility:hidden;
@@ -4134,7 +4137,7 @@ form input[type="text"].input-38, form input[type="name"].input-38, form input[t
 .app-52 { margin-bottom:30px;}
 .pad-52.pad { border-radius:40px;}
 @media screen and (min-width:768px) {.box-53 { margin-top:65px }}
-.pad-53.pad { border-radius:40px;}
+.pad-53.pad { border-radius:20px;}
 .pad-53 .button { margin-left:0; margin-right:0;}
 @media screen and (max-width:767px) { .cell-53 { margin-bottom:40px;}}
 @media screen and (min-width:768px) { .box-54 { margin-top:65px }}
@@ -4391,4 +4394,58 @@ form input[type="text"].input-96, form input[type="name"].input-96, form input[t
 .slide.whiteSlide form.form-97 input[type="tel"] { border-left: none; border-radius: 0 4px 4px 0; box-shadow:none;}
 
 /* My custom styles */
-@media screen and (max-width: 1023px) { h1, p {text-align: center;}.centerCustom {text-align: center !important; margin: 0 auto !important;}.shiftImageMyCustom { margin-bottom: 25px !important;} }
+
+@media screen and (max-width: 1023px) { 
+  h1, h3, p {
+    text-align: center;
+  }
+
+  .centerCustom {
+    text-align: center !important; margin: 0 auto !important;
+  }
+
+  .shiftImageMyCustom {
+    margin-bottom: 25px !important;
+  }
+
+  .disable {
+    display: none;
+  }
+}
+
+.hrGrey {
+  color: #DDD; /*для IE */
+  background-color:#DDD;
+  border:0px none;
+  height:1px;
+  clear:both;
+  margin: 50px 0;
+}
+
+.hrWhite {
+  color: #333; /*для IE */
+  background-color:#333;
+  border:0px none;
+  height:1px;
+  clear:both;
+  margin: 25px 0 50px 0;
+}
+
+.hrBlue {
+  color: #57A3F9; /*для IE */
+  background-color:#57A3F9;
+  border:0px none;
+  height:1px;
+  clear:both;
+  margin: 25px 0 50px 0;
+}
+
+.h1modify {
+  display: inline-block;
+  font-family:"Source Sans Pro", sans-serif;
+  font-size:55px;
+  line-height:1.05;  
+  font-weight:300;
+  margin-bottom:10px;
+  margin-left:-0.05em;
+}

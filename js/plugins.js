@@ -257,7 +257,7 @@ window.allowCloseZoom = true;
     this._translateY = viewportY - imageCenterY
     this._translateX = viewportX - imageCenterX
 
-    $(this._targetImage).css('transform', 'scale(' + this._imgScaleFactor + ')')
+    $(this._targetImage).css('transform', 'scale3d(' + this._imgScaleFactor + ',' + this._imgScaleFactor + ',1)')
     $(this._targetImageWrap).css('transform', 'translate(' + this._translateX + 'px, ' + this._translateY + 'px) translateZ(0)')
 
     this._$body.addClass('zoom-overlay-open')
