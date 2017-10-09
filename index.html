@@ -39,6 +39,43 @@
   </head>
     
   <body class="slides scroll fast defaultScroll whiteSlide animated">
+    <!-- Yandex.Metrika counter --> 
+    <script type="text/javascript" > (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter46175166 = new Ya.Metrika({ id:46175166, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/46175166" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+
+    <script>
+      function getParameterByName(name) {
+        try {
+          name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+          var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+              results = regex.exec(location.search);
+          return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        } catch(ex) {
+        }
+      }
+      var getParamFromUrl = function(name) {
+        var getParam = getParameterByName(name);
+        if ((getParam!==null) && (getParam!==undefined) && (getParam!=="")) {
+          return getParam;
+        }
+      }
+      var addLink = function(link) {
+              var trackingImage = new Image(0, 0); // window.self.document.createElement("img");
+              trackingImage.id = "probtn_getintent_includepb_tracking_image";
+              trackingImage.alt = "probtn_getintent_includepb_tracking_image";
+              trackingImage.src = link;
+              trackingImage.style.cssText = "position: absolute; top:-11111px; left: -11111px; width: 1px; height: 1px;";
+              //document.body.appendChild(trackingImage);
+      };
+      var addSuperPixelLink = function(param) {
+        var suf = "_E";
+        addLink("https://pixel.probtn.com/1/from-ref?pbdebug=getintent&DeviceUID=&localDomain="+document.domain.replace("www.", "")+"&daction=" + param );
+        return true;
+      }
+      var utm_campaign = getParamFromUrl("utm_campaign");
+      var utm_source = getParamFromUrl("utm_source");
+
+      addSuperPixelLink("probtn.com_utm_campaign=" + utm_campaign + "&utm_source=" + utm_source);
+    </script>
       
     <!-- SVG Library -->
     <svg xmlns="https://www.w3.org/2000/svg" style="display:none">
@@ -1008,11 +1045,14 @@
     <script src="js/plugins.js" type="text/javascript" name="plugins"></script>
     <script src="js/slides.js" type="text/javascript" name="main-scripts"></script>
 
+    <div id="probtn_additional_params" style="display: none;">{"ButtonOnClick": "'console.log('ButtonOnClick'); try { yaCounter46175166.reachGoal('probtn_touched1'); console.log('probtn_touched1 goal'); } catch(ex) {}; function start1() { console.log('start1'); try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=='video') { if (window.probtn_dropedActiveZone!==null) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=='video') { var video = jQuery('#video_probtn_'+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0); video.play(); } } else { var video = jQuery('#video_probtn').get(0); var frame_id = jQuery('.fancybox-iframe').first().attr('id'); probtn_callPlayer('video_probtn', 'playVide'); video.play(); } } } } catch(ex) { } }; start1(); setTimeout(start1 , 1000); setTimeout(start1 , 2000);'", 
+"ButtonOnTouchEnd": "try { yaCounter46175166.reachGoal('probtn_touched1'); console.log('probtn_touched1 goal'); } catch(ex) {}; var moved =  window.probtn_pizzabtn_moved; console.log('moved'); clearInterval(window.probtn_touch_interval); function start2() { console.log('window.probtn_dropedActiveZone', window.probtn_dropedActiveZone, moved); try { if ((window.probtn_dropedActiveZone!==null) && (window.probtn_dropedActiveZone!==undefined) && (moved === false)) { if (window.probtn_dropedActiveZone.currentActiveZone.ButtonContentType=='video') { var videoZone = jQuery('#video_probtn_'+window.probtn_dropedActiveZone.currentActiveZone.Name).get(0);  videoZone.play(); moved = true; } } else { console.log('moved', moved); if (moved === false) {  try { if (window.probtn_ButtonContentType!==null) { if (window.probtn_ButtonContentType=='video') { moved = true; var video = jQuery('#video_probtn').get(0); var frame_id = jQuery('.fancybox-iframe').first().attr('id'); probtn_callPlayer('video_probtn', 'playVideo'); video.play(); } } } catch(ex) { console.log(ex); } } } } catch(ex) { console.log(ex); } }; start2(); "}</div>
     <!-- Probtn -->
     <script src="https://cdn.probtn.com/probtn_concat.js"></script>
 
     <!-- Google Analitycs -->
     <script>
+      try { yaCounter46175166.reachGoal('ga_script1'); console.log("ga_script1 goal"); } catch(ex) {}; 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -1023,8 +1063,6 @@
     </script>
 
     <!--some comment-->
-    <!-- Yandex.Metrika counter --> 
-    <script type="text/javascript" > (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter46175166 = new Ya.Metrika({ id:46175166, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/46175166" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
                   
   </body>
 </html>
