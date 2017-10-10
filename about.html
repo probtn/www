@@ -595,6 +595,7 @@
 
     <!-- Google Analitycs -->
     <script>
+      try { yaCounter46175166.reachGoal('ga_script1'); console.log("ga_script1 goal"); } catch(ex) {}; 
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -602,6 +603,8 @@
 
       ga('create', 'UA-77568329-1', 'auto');
       ga('send', 'pageview');
+      setTimeout("ga('send','event','Engaged users','More than 5 seconds')", 5000);
+      setTimeout(function() { try { yaCounter46175166.reachGoal('probtn_5sec'); console.log("probtn_5sec goal"); } catch(ex) {};  }, 5000);
     </script>
                   
   </body>
